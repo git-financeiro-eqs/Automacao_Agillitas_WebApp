@@ -1,6 +1,7 @@
 # Automacao_Agillitas_WebApp
 Transposição da automação do Agillitas. Antes a automação era programada para uma aplicação Desktop, agora que o microsiga migrou para o Web, essa é a nova versão da automação compatível com o novo microsiga
 
+
 # Automacao Agillitas
 
 Automação desenvolvida para realizar o lançamento de RTs (Caixas - Demonstrativo de despesas de um operador) no sistema ERP Microsiga. Dentro de uma RT podem ter Recibos e DANFEs, e a automação é preparada para lançar ambos os casos, além de tratar qualquer imprevisto no decorrer desse processo.
