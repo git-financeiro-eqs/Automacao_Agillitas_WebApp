@@ -56,22 +56,21 @@ Este projeto foi desenvolvido utilizando:
 ---
 
 ## 🚀 **Como Executar**  
-
-1. Certifique-se de que o **ERP Microsiga está acessível e já logado**. O Microsiga precisa estar aberto na tela principal da rotina **IntAgillitas**.  
-2. Coloque os **arquivos XML** das notas na pasta configurada como **repositório**.
+  
+1. Coloque os **arquivos XML** das notas na pasta configurada como **repositório**.
    
-   2.1. Configure o repositório de XMLs:  
+   1.1. Configure o repositório de XMLs:  
         - Crie uma pasta para armazenar os XMLs das notas fiscais.  
         - Atualize o caminho da pasta no código, se necessário.  
         - É preciso sempre inserir os XMLs na pasta repositório, essa é a unica forma de alimentar a automação.
           Essa tarefa pode ser feita uma vez por mês, pegando os XMLs do mês anterior e os salvando na pasta chamada xmlFiscalio.
           Eu utilizo o software Fiscal.io para realizar a busca e o Download dos arquivos XMLs desejados.
    
-4. **Execute o script principal**:  
+2. **Execute o script principal**:  
    ```sh
    python main.py
    ```
-5. As demais ações o próprio Bot irá te ensinar.
+3. As demais ações o próprio Bot irá te ensinar.
 <br/>
 
 ## **Observações**  
