@@ -24,6 +24,7 @@ Este projeto foi desenvolvido utilizando:
 
 - **Python** 🐍
 - **PyAutoGUI** - Automação de interface gráfica
+- **Selenium** - Abertura do Microsiga WebApp
 - **Pyperclip** - Manipulação da área de transferência
 - **OpenCV** - Processamento de imagens
 - **xmltodict** - Manipulação de XML
