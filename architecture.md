@@ -158,13 +158,16 @@ Abaixo estão os módulos que compõem o sistema, com suas responsabilidades e i
 Aqui está um diagrama que mostra como os módulos se relacionam:
 
 
-[main] -> [gui] -> [mariquinhaCorrente] <-> [acaoComum] <- [extratorXML]  
-[main] -> [gui] -> [mariquinhaUnitária] <-> [acaoComum] <- [extratorXML]  
-[mariquinhaCorrente] <-> [operadoresLancamento]    
-[mariquinhaUnitária] <-> [operadoresLancamento]    
-[tratamentoItem] -> [acaoComum]  
-[utils] <- Todos os módulos    
-[mensagens] <- Todos os módulos    
+[main] <- [gui] <- [mariquinhaCorrente]
+[mariquinhaCorrente] <- [acaoComum] <- [extratorXML]  
+[main] <- [gui] <- [mariquinhaUnitária]
+[mariquinhaUnitária] <- [acaoComum] <- [extratorXML]  
+[mariquinhaCorrente] <- [acaoComum] <- [operadoresLancamento] <- [ContingenciarResponsividade]  
+[mariquinhaUnitária] <- [acaoComum] <- [operadoresLancamento] <- [ContingenciarResponsividade]  
+[tratamentoItem] -> [acaoComum] 
+[atuadorWeb] -> [acaoComum]  
+[utils] -> Todos os módulos    
+[mensagens] -> Todos os módulos    
 
 ---
 
