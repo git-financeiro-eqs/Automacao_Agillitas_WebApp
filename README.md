@@ -34,12 +34,6 @@ Este projeto foi desenvolvido utilizando:
 
 ---
 
-## ⚙️ **Pré-requisitos**  
-Antes de rodar o projeto, certifique-se de ter instalado:  
-- **Python 3.x**    
-- **ERP TOTVS Microsiga** instalado e acessível 
-<br/>
-
 ## 📥 **Instalação**  
 
 1. **Clone este repositório**  
