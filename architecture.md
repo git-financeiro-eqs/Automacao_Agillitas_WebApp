@@ -11,7 +11,7 @@ O projeto **Automação Agillitas** foi desenvolvido para automatizar o lançame
 1. **mariquinhaCorrente**: Realiza o lançamento sequencial de RTs pendentes.
 2. **mariquinhaUnitária**: Realiza o lançamento de uma RT específica, definida pelo operador, podendo até lançar RTs baixadas parcialmente.
 
-A automação é composta por **10 módulos**, cada um com responsabilidades específicas, que trabalham em conjunto para garantir o funcionamento correto do sistema.
+A automação é composta por **12 módulos**, cada um com responsabilidades específicas, que trabalham em conjunto para garantir o funcionamento correto do sistema.
 
 ---
 
@@ -111,7 +111,21 @@ Abaixo estão os módulos que compõem o sistema, com suas responsabilidades e i
           <li>Compara valores da NF com os valores apresentados na tela de lançamento do SIGA.</li>
         </ul>
       </td>
-      <td>Utilizado pelos módulos <strong>mariquinhaCorrente</strong> e <strong>mariquinhaUnitária</strong> durante o lançamento.</td>
+      <td>Utilizado pelo módulo <strong>acaoComum</strong> durante o lançamento.</td>
+    </tr>
+    <tr>
+      <td><strong>ContingenciarResponsividade</strong></td>
+      <td>Classe com funções de monitoramento de instabilidade no momento de lançamento da DANFE no Siga WebApp.</td>
+      <td>
+        <ul>
+          <li>Seus métodos são executados em paralelo às funções de lançamento.</li>
+          <li>Seu propósito é monitorar quando ocorrerá um deslize no percurso da automação no momento do lançamento,
+            procurando por erros pontuais.</li>
+          <li>Quando identificado um deslize, a automação dispara um gatilho que dá o comando para automação cancelar o lancamento
+            para reinicia-lo.</li>
+        </ul>
+      </td>
+      <td>Utilizado pelos módulos <strong>operadoresLancamento</strong> e <strong>acaoComum</strong> durante o lançamento.</td>
     </tr>
     <tr>
       <td><strong>tratamentoItem</strong></td>
