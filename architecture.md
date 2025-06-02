@@ -147,6 +147,16 @@ Abaixo estão os módulos que compõem o sistema, com suas responsabilidades e i
       </td>
       <td>Utilizado por todos os módulos que precisam de funcionalidades comuns.</td>
     </tr>
+    <tr>
+      <td><strong>atuadorWeb</strong></td>
+      <td>Fornece funções para interação com paginas web, seja para abertura da pagina ou algumas manipulações específicas.</td>
+      <td>
+        <ul>
+          <li>Função de abertura do microsiga WebApp, além de ações como clicar ou esperar um elemento HTML passado.</li>
+        </ul>
+      </td>
+      <td>Utilizado pelas Mariquinha para abertura do Microsiga WebApp.</td>
+    </tr>
   </tbody>
 </table>
 
