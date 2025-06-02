@@ -164,7 +164,7 @@ Aqui está um diagrama que mostra como os módulos se relacionam:
 [mariquinhaUnitária] <- [acaoComum] <- [extratorXML]  
 [mariquinhaCorrente] <- [acaoComum] <- [operadoresLancamento] <- [ContingenciarResponsividade]  
 [mariquinhaUnitária] <- [acaoComum] <- [operadoresLancamento] <- [ContingenciarResponsividade]  
-[tratamentoItem] -> [acaoComum] 
+[tratamentoItem] -> [acaoComum]    
 [atuadorWeb] -> [acaoComum]  
 [utils] -> Todos os módulos    
 [mensagens] -> Todos os módulos    
