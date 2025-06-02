@@ -195,7 +195,9 @@ Aqui está um diagrama que mostra como os módulos se relacionam:
 
 ## Observações  
 
-A Biblioteca Pyautogui é uma maneira diferente de execultar a técnica da raspagem de tela. Para o Pyautogui execultar essa técnica, é preciso tirar um print do elemento que se deseja procurar, salvá-lo em algum diretório, e passar o caminho desse arquivo para o método locateOnScreen. As imagens dos elementos que foram mapeadas para essa automação estão na pasta Imagens.
+A Biblioteca Pyautogui é uma maneira diferente de execultar a técnica da raspagem de tela. Para o Pyautogui execultar essa técnica, é preciso tirar um print do elemento que se deseja procurar, salvá-lo em algum diretório, e passar o caminho desse arquivo para o método locateOnScreen. As imagens dos elementos que foram mapeadas para essa automação estão na pasta Imagens.  
+  
+Se você que está lendo esse documento parar pra estudar a diferença entre a versão da Mariquinha voltada para o Desktop e a versão da Mariquinha voltada para o WebApp, que é essa daqui, você perceberá que além da nova forma de acessar o Microsiga, também tem algumas mudanças particulares neste código, como algumas manipulações de teclado execultadas pelo método send_keys() da lib Selenium. Isso, e tantas outras pequenas mudanças do modo de operar desta automação, aconteceram por causa das limitações do sistema WebApp. O Microsiga WebApp tem uma péssima responsividade, além de ser mais lento que o antigo SmartClient. Para contornar essas imprevisibilidades que a instabilidade que a interface WebApp oferece, em alguns pontos criticos da operação, atribui o controle do mouse e do teclado aos métodos disponibilizados pela lib Selenium em vez de manter tudo com o Pyautogui. Foi a forma que encontrei para contornar as imperfeições do WebApp. Sei que o código parece um "Frankenstein" usando duas libs que fazem a mesma coisa, ora uma comanda as ações, ora a outra comanda, mas, com pouco tempo para fazer funcionar novamente a automação, creio que o que foi feito foi a melhor das alternativas.
 
 ---
 
