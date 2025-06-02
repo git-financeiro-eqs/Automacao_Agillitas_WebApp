@@ -22,7 +22,7 @@ Escolha uma das modalidades da Mariquinha, seja o lançamento de uma unica RT ou
 Para lançar apenas uma RT por vez basta inserir o número da RT no campo próprio da Mariquinha e apertar o botão play logo abaixo.
 
 Ao acionar a Mariquinha, em qualquer uma de suas modalidades, o navegador será aberto pelo Selenium. A automação abre o microsiga WebApp diretamente, você só precisa inserir as credenciais e selecionar a rotina IntAgillitas no módulo Compras.
-Resumindo, a automação abre o siga WebApp, mas, quem coloca as credenciais e seleciona a rotina desejada é você, então muita atenção nessa hora pra não acabar escolhendo a rotina errada. Após aberta a rotina, pode soltar o mouse e o teclado que o resto é com a Mariquinha.
+Resumindo, a automação abre o siga WebApp, mas, quem coloca as credenciais e seleciona a rotina desejada é você. Então muita atenção nessa hora pra não acabar escolhendo a rotina errada. Após aberta a rotina, pode soltar o mouse e o teclado que o resto é com a Mariquinha.
 
 Para interromper ou finalizar a execução do bot, basta levar o cursor do mouse até o limite do canto superior esquerdo da sua tela e aguardar 10 segundos.
 Se a tela do bot estiver preta, mantenha o cursor no canto extremo do monitor e aguarde mais um pouco.
