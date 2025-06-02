@@ -155,7 +155,7 @@ Abaixo estão os módulos que compõem o sistema, com suas responsabilidades e i
           <li>Função de abertura do microsiga WebApp, além de ações como clicar ou esperar um elemento HTML passado.</li>
         </ul>
       </td>
-      <td>Utilizado pelas Mariquinha para abertura do Microsiga WebApp.</td>
+      <td>Utilizado pelas Mariquinhas para abertura do Microsiga WebApp.</td>
     </tr>
   </tbody>
 </table>
