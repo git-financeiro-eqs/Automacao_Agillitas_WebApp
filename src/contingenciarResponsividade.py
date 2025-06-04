@@ -7,12 +7,14 @@ from typing import Optional, Set
  
  
 class ContingenciaMonitor:
+
     def __init__(self):
         self.encerrar = threading.Event()
         self.fila = queue.Queue()
         self.erros_ativos: Set[str] = set()
         self.thread_monitoramento: Optional[threading.Thread] = None
-        self.lock = threading.Lock()  # Para evitar race conditions
+        self.lock = threading.Lock()
+
  
     def encontrar_erro_geral(self) -> Optional[tuple]:
         """Tenta encontrar qualquer um dos erros inesperados de forma sequencial"""
@@ -37,20 +39,20 @@ class ContingenciaMonitor:
                 continue
        
         return None
+    
+
  
     def monitorar(self):
         """Loop principal de monitoramento com tratamento de recursos"""
         try:
             while not self.encerrar.is_set():
                 try:
-                    # Verifica ValItemErrado se estiver ativo
                     if 'ValItemErrado' in self.erros_ativos:
                         val_item = utils.encontrar_centro_imagem(r'src\Imagens\ValItemErrado.png')
                         if val_item:
                             with self.lock:
                                 self.fila.put("ValItemErrado")
                    
-                    # Verifica erros gerais
                     erro_geral = self.encontrar_erro_geral()
                     if erro_geral:
                         with self.lock:
@@ -69,6 +71,8 @@ class ContingenciaMonitor:
         finally:
             self.limpar_recursos()
  
+
+
     def limpar_recursos(self):
         """Garante a liberação de recursos"""
         with self.lock:
@@ -78,6 +82,8 @@ class ContingenciaMonitor:
                 except queue.Empty:
                     pass
  
+
+
     def iniciar(self, erros=None):
         """Inicia uma nova thread de monitoramento"""
         if self.thread_monitoramento and self.thread_monitoramento.is_alive():
@@ -92,26 +98,25 @@ class ContingenciaMonitor:
         )
         self.thread_monitoramento.start()
  
+
  
     def parar(self):
         """Versão à prova de falhas para encerramento"""
         if not hasattr(self, 'thread_monitoramento') or not self.thread_monitoramento:
             return
  
-        self.encerrar.set()  # Sinaliza para parar
+        self.encerrar.set()
  
-        # Verificação CRUCIAL para não tentar fazer join na própria thread
         if (threading.current_thread() != self.thread_monitoramento and
             self.thread_monitoramento.is_alive()):
            
-            self.thread_monitoramento.join(timeout=1.0)  # Timeout reduzido
+            self.thread_monitoramento.join(timeout=1.0)
  
- 
-        # Limpeza final segura
         self.limpar_recursos()
-        self.thread_monitoramento = None  # Remove a referência
+        self.thread_monitoramento = None
         print(threading.enumerate())
  
+
  
     def obter_erro(self, timeout=None):
         """Obtém o próximo erro da fila com thread-safe"""
@@ -122,6 +127,7 @@ class ContingenciaMonitor:
             return None
        
  
+
     def __enter__(self):
         return self
    
