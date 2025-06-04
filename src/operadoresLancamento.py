@@ -41,7 +41,7 @@ def escrever_valor_unit(valor_unit):
     Função auxiliar à função verificar_valor_item. Ela escreve o valor unitário de um item no sistema SIGA,
     após mover o cursor para a posição correta.
     """
-    with ContingenciaMonitor() as monitor:  # Usando gerenciador de contexto
+    with ContingenciaMonitor() as monitor:  
         monitor.iniciar(erros=['ValItemErrado', 'ErroGeral'])
 
         ptg.press("right")
@@ -49,7 +49,7 @@ def escrever_valor_unit(valor_unit):
         sleep(0.2)
         ptg.write(valor_unit, interval=0.5)
         sleep(0.5)
-        erro = monitor.obter_erro(timeout=0)  # Timeout zero para verificação instantânea
+        erro = monitor.obter_erro(timeout=0)  
         if erro:
             cancelar_lancamento = tratar_erro_contingencial()
             return cancelar_lancamento
@@ -73,7 +73,7 @@ def verificar_valor_do_item(lista, indiceX, actions):
              específicos passam por uma conversão de unidade de medida no pedido. Para que o programa saiba lidar com esses itens, 
              eles foram mapeados e inseridos no código afim de aplicar a devida tratativa para cada caso.
     """
-    with ContingenciaMonitor() as monitor:  # Usando gerenciador de contexto
+    with ContingenciaMonitor() as monitor:  
         monitor.iniciar(erros=['ValItemErrado', 'ErroGeral'])
 
         cancelar_lancamento = False
@@ -101,6 +101,7 @@ def verificar_valor_do_item(lista, indiceX, actions):
                     return cancelar_lancamento, razoes
 
                 diferenca_incoerente = valor_do_item_na_NF - valor_do_item_no_siga
+
         if valor_do_item_no_siga != valor_do_item_na_NF:
             ptg.write(lista[indiceX][0], interval=0.5)
             sleep(0.5)
@@ -110,11 +111,11 @@ def verificar_valor_do_item(lista, indiceX, actions):
                 return cancelar_lancamento, razoes
             
             sleep(0.8)
-            encontrar = utils.encontrar_imagem(r'src\Imagens\ValitemErrado.png')
+            encontrar = utils.encontrar_imagem(r'src\Imagens\ValItemErrado.png')
             if type(encontrar) == pyscreeze.Box:
                 ptg.press("enter")
                 sleep(0.5)
-                encontrar = utils.encontrar_imagem(r'src\Imagens\ValitemErrado.png')
+                encontrar = utils.encontrar_imagem(r'src\Imagens\ValItemErrado.png')
                 if type(encontrar) == pyscreeze.Box:
                     ptg.press("enter")
                 ptg.press("esc")
@@ -203,7 +204,7 @@ def definir_TES(ctrl_imposto):
 
     :param ctrl_imposto: Controle de impostos aplicados ao item.
     """
-    with ContingenciaMonitor() as monitor:  # Usando gerenciador de contexto
+    with ContingenciaMonitor() as monitor:  
         monitor.iniciar(erros=['ValItemErrado', 'ErroGeral'])
 
         if ctrl_imposto != "Nenhum imposto":
@@ -225,7 +226,7 @@ def definir_TES(ctrl_imposto):
 
 
 def inserir_ICMS(icms_no_item, bc_icms, aliq_icms):
-    with ContingenciaMonitor() as monitor:  # Usando gerenciador de contexto
+    with ContingenciaMonitor() as monitor: 
         monitor.iniciar(erros=['ValItemErrado', 'ErroGeral'])
 
         ptg.press(["right"]*7)
@@ -235,7 +236,7 @@ def inserir_ICMS(icms_no_item, bc_icms, aliq_icms):
         
         ptg.write(bc_icms, interval=0.5)
         sleep(0.5)
-        erro = monitor.obter_erro(timeout=0)  # Timeout zero para verificação instantânea
+        erro = monitor.obter_erro(timeout=0)  
         if erro:
             cancelar_lancamento = tratar_erro_contingencial()
             return cancelar_lancamento
@@ -245,7 +246,7 @@ def inserir_ICMS(icms_no_item, bc_icms, aliq_icms):
 
         ptg.write(aliq_icms, interval=0.5)
         sleep(0.5)
-        erro = monitor.obter_erro(timeout=0)  # Timeout zero para verificação instantânea
+        erro = monitor.obter_erro(timeout=0)  
         if erro:
             cancelar_lancamento = tratar_erro_contingencial()
             return cancelar_lancamento
@@ -256,7 +257,7 @@ def inserir_ICMS(icms_no_item, bc_icms, aliq_icms):
         icms_no_item = utils.formatador2(icms_no_item)
         ptg.write(icms_no_item, interval=0.5)
         sleep(0.5)
-        erro = monitor.obter_erro(timeout=0)  # Timeout zero para verificação instantânea
+        erro = monitor.obter_erro(timeout=0)  
         if erro:
             cancelar_lancamento = tratar_erro_contingencial()
             return cancelar_lancamento
@@ -264,7 +265,7 @@ def inserir_ICMS(icms_no_item, bc_icms, aliq_icms):
 
 
 def inserir_ICMSST(icmsST_no_item, base_icms_ST, passosST=8):
-    with ContingenciaMonitor() as monitor:  # Usando gerenciador de contexto
+    with ContingenciaMonitor() as monitor:  
         monitor.iniciar(erros=['ValItemErrado', 'ErroGeral'])
 
         ptg.press(["right"]*passosST)
@@ -274,7 +275,7 @@ def inserir_ICMSST(icmsST_no_item, base_icms_ST, passosST=8):
         
         ptg.write(base_icms_ST, interval=0.5)
         sleep(0.5)
-        erro = monitor.obter_erro(timeout=0)  # Timeout zero para verificação instantânea
+        erro = monitor.obter_erro(timeout=0)  
         if erro:
             cancelar_lancamento = tratar_erro_contingencial()
             return cancelar_lancamento
@@ -287,7 +288,7 @@ def inserir_ICMSST(icmsST_no_item, base_icms_ST, passosST=8):
         
         ptg.write(icmsST_no_item, interval=0.5)
         sleep(0.5)
-        erro = monitor.obter_erro(timeout=0)  # Timeout zero para verificação instantânea
+        erro = monitor.obter_erro(timeout=0)  
         if erro:
             cancelar_lancamento = tratar_erro_contingencial()
             return cancelar_lancamento
@@ -296,7 +297,7 @@ def inserir_ICMSST(icmsST_no_item, base_icms_ST, passosST=8):
 
 
 def inserir_IPI(ipi_no_item, base_ipi, aliq_ipi, passosIPI=12):
-    with ContingenciaMonitor() as monitor:  # Usando gerenciador de contexto
+    with ContingenciaMonitor() as monitor:  
         monitor.iniciar(erros=['ValItemErrado', 'ErroGeral'])
 
         ptg.press(["right"]*passosIPI)
@@ -305,7 +306,7 @@ def inserir_IPI(ipi_no_item, base_ipi, aliq_ipi, passosIPI=12):
         base_ipi = utils.formatador2(base_ipi)
         ptg.write(base_ipi, interval=0.5)
         sleep(0.5)
-        erro = monitor.obter_erro(timeout=0)  # Timeout zero para verificação instantânea
+        erro = monitor.obter_erro(timeout=0)  
         if erro:
             cancelar_lancamento = tratar_erro_contingencial()
             return cancelar_lancamento
@@ -314,7 +315,7 @@ def inserir_IPI(ipi_no_item, base_ipi, aliq_ipi, passosIPI=12):
         ptg.press("enter", interval=0.5)
         ptg.write(aliq_ipi, interval=0.5)
         sleep(0.5)
-        erro = monitor.obter_erro(timeout=0)  # Timeout zero para verificação instantânea
+        erro = monitor.obter_erro(timeout=0)  
         if erro:
             cancelar_lancamento = tratar_erro_contingencial()
             return cancelar_lancamento
@@ -324,7 +325,7 @@ def inserir_IPI(ipi_no_item, base_ipi, aliq_ipi, passosIPI=12):
         ipi_no_item = utils.formatador2(ipi_no_item)
         ptg.write(ipi_no_item, interval=0.5)
         sleep(0.5)
-        erro = monitor.obter_erro(timeout=0)  # Timeout zero para verificação instantânea
+        erro = monitor.obter_erro(timeout=0)  
         if erro:
             cancelar_lancamento = tratar_erro_contingencial()
             return cancelar_lancamento
@@ -346,6 +347,3 @@ def corrigir_passos_horizontal(cont, item):
         sleep(1)
         if cont == len(item):
             ptg.press(["left"]*4)
-
-
-    
