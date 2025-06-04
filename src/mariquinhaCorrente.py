@@ -132,9 +132,7 @@ def inicializar_processo():
                 estado_do_caixa = acaoComum.clicar_Lancar()
                 cc_bloqueado = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaCCBloqueado.png')
                 erro_cc = utils.encontrar_centro_imagem(r'src\Imagens\CCNaoSintetico.png')
-                aguarde = utils.encontrar_centro_imagem(r'src\Imagens\TelaDeAguarde2.png')
-                while type(aguarde) == tuple:
-                    aguarde = utils.encontrar_centro_imagem(r'src\Imagens\TelaDeAguarde2.png')
+                utils.aguardar_generico(r'src\Imagens\TelaDeAguarde2.png')
                 if type(cc_bloqueado) == tuple or type(erro_cc) == tuple:
                     ptg.press("enter", interval=0.5)
                     if type(erro_cc) == tuple:
@@ -148,7 +146,6 @@ def inicializar_processo():
                     return robozinho()
                 
                 repentina_etapa_final = utils.encontrar_imagem(r'src\Imagens\ReferenciaFinalPorLancamento.png')
-
                 if type(repentina_etapa_final) == pyscreeze.Box:
                     utils.tratar_etapa_final()
 
@@ -232,7 +229,7 @@ def inicializar_processo():
 
                     return robozinho()
                 
-                if type(inserir_xml) == tuple:
+                if inserir_xml == True:
                     chave_de_acesso, processo_feito_errado = acaoComum.copiar_chave_acesso()
                     x, y = utils.clicar_2x(r'src\Imagens\BotaoSolicitarXML.png')
 
@@ -241,8 +238,7 @@ def inicializar_processo():
                         falsa_duplicidade = utils.encontrar_centro_imagem(r'src\Imagens\ErroPossivelDuplicidade.png')
                         xml_manual = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaXMLAindaNaoSolicitado3.png')
                         if type(aguardando) == tuple:
-                            while type(aguardando) == tuple:
-                                aguardando = utils.encontrar_centro_imagem(r'src\Imagens\TelaDeAguarde1.png')
+                            utils.aguardar_generico()
                         elif type(falsa_duplicidade) == tuple or type(xml_manual) == tuple:
                             try:
                                 verificador = pular_processo.index(chave_de_acesso)
@@ -284,7 +280,7 @@ def inicializar_processo():
                                 
                             except ValueError:
                                 # Aqui está o fluxo natural do script. Quando o registro não precisa ser pulado, mas sim lançado.
-                                caminho = "C:\\Users\\User\\OneDrive - EQS Engenharia Ltda\\Área de Trabalho\\Mariquinha\\xmlFiscalio\\" + chave_de_acesso + ".xml"
+                                caminho = "C:\\Users\\Usuário\\Desktop\\xmlFiscalio\\" + chave_de_acesso + ".xml"
                                 path = Path(caminho)
 
                                 if not path.exists():
@@ -380,7 +376,7 @@ def inicializar_processo():
                         return operar_lancamento(pular_processo)
                     
                 except ValueError:
-                    caminho = "C:\\Users\\User\\OneDrive - EQS Engenharia Ltda\\Área de Trabalho\\Mariquinha\\xmlFiscalio\\" + chave_de_acesso + ".xml"
+                    caminho = "C:\\Users\\Usuário\\Desktop\\xmlFiscalio\\" + chave_de_acesso + ".xml"
                     path = Path(caminho)
 
                     if not path.exists():
@@ -469,7 +465,7 @@ def inicializar_processo():
                         return operar_lancamento(pular_processo)
                     
                 except ValueError:
-                    caminho = "C:\\Users\\User\\OneDrive - EQS Engenharia Ltda\\Área de Trabalho\\Mariquinha\\xmlFiscalio\\" + chave_de_acesso + ".xml"
+                    caminho = "C:\\Users\\Usuário\\Desktop\\xmlFiscalio\\" + chave_de_acesso + ".xml"
                     path = Path(caminho)
                     
                     if not path.exists():
@@ -533,10 +529,11 @@ def inicializar_processo():
                             pular_processo.append(chave_de_acesso)
                             controle_de_repeticao.append(chave_de_acesso)
                             ptg.press("enter", interval=1)
-                            utils.aguardar1()
-                            cc_bloqueado = utils.encontrar_imagem(r'src\Imagens\ReferenciaCCBloqueado.png')
+                            utils.aguardar_generico()
+                            cc_bloqueado = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaCCBloqueado.png')
                             erro_cc = utils.encontrar_centro_imagem(r'src\Imagens\CCNaoSintetico.png')
-                            if type(cc_bloqueado) == tuple or type(erro_cc) == tuple:
+                            erro_natureza = utils.encontrar_centro_imagem(r'src\Imagens\ErroNatureza.png')
+                            if type(cc_bloqueado) == tuple or type(erro_cc) == tuple or type(erro_natureza) == tuple:
                                 ptg.press("enter", interval=0.5)
                                 if type(erro_cc) == tuple:
                                     acaoComum.rejeitar_caixa(mensagem="Centro de Custo não é sintético.")
@@ -569,7 +566,7 @@ def inicializar_processo():
                         erro_cnpj = utils.encontrar_centro_imagem(r'src\Imagens\ErroEsquisito.png')
                         if type(erro_cnpj) == tuple:
                             ptg.press("enter", interval=1)
-                            utils.aguardar1()
+                            utils.aguardar_generico()
 
                         tela_de_lancamento = utils.encontrar_imagem(r'src\Imagens\ReferenciaDocumentoEntrada.png')
                         erro_sefaz = utils.encontrar_imagem(r'src\Imagens\ErroNFNaoEncontradaNoSefaz.png')
@@ -580,7 +577,7 @@ def inicializar_processo():
                             ptg.press("enter", interval=0.5)
                             _ = utils.esperar_aparecer(r'src\Imagens\ReferenciaBloqueioGenerico.png')
                             ptg.press("enter", interval=1)
-                            utils.aguardar1()
+                            utils.aguardar_generico()
                             erro_condicao_pag = utils.encontrar_centro_imagem(r'src\Imagens\ErroCondicaoDePagamento.png')
                             if type(erro_condicao_pag) == tuple:
                                 ptg.press("enter", interval=0.5)
@@ -680,3 +677,4 @@ def inicializar_processo():
     while True:
         robozinho()
         sleep(1)
+        
