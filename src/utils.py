@@ -133,7 +133,7 @@ def encontrar_imagem_precisao(imagem):
     cont = 0
     while True:
         try:
-            encontrou = ptg.locateOnScreen(imagem, grayscale=True, confidence=0.96)     
+            encontrou = ptg.locateOnScreen(imagem, grayscale=True, confidence=0.92)     
             return encontrou
         except:
             sleep(0.8)
@@ -146,19 +146,19 @@ def encontrar_imagem_precisao(imagem):
 def aguardar():
     _ = esperar_aparecer(r'src\Imagens\TelaDeAguarde1.png')
     sleep(0.6)
-    aguarde_final = encontrar_centro_imagem(r'src\Imagens\TelaDeAguarde3.png')
-    while type(aguarde_final) == tuple:
-        aguarde_final = encontrar_centro_imagem(r'src\Imagens\TelaDeAguarde3.png')
+    aguardar_generico(r'src\Imagens\TelaDeAguarde3.png')
     sleep(2)
 
 
-def aguardar1():
-    aguarde = encontrar_imagem(r'src\Imagens\TelaDeAguarde1.png')
+
+def aguardar_generico(imagem = r'src\Imagens\TelaDeAguarde1.png'):
+    aguarde = encontrar_imagem(imagem)
     while type(aguarde) == pyscreeze.Box:
-        aguarde = encontrar_imagem(r'src\Imagens\TelaDeAguarde1.png')
+        aguarde = encontrar_imagem(imagem)
 
 
-def aguardar2():
+
+def aguardar_verificacao():
     aguarde1 = encontrar_imagem_precisao(r'src\Imagens\TelaDeAguarde1.png')
     aguarde2 = encontrar_imagem_precisao(r'src\Imagens\TelaDeAguarde2.png')
     return aguarde1, aguarde2
@@ -174,10 +174,9 @@ def cancelar_lancamento():
             break
         except:
             pass
-    aguarde = encontrar_centro_imagem(r'src\Imagens\ReferenciaAguarde.png') 
-    while type(aguarde) == tuple:
-        aguarde = encontrar_imagem(r'src\Imagens\ReferenciaAguarde.png') 
-        sleep(1)
+    aguardar_generico(r'src\Imagens\ReferenciaAguarde.png')
+    sleep(1)
+
 
 
 def clicar_em_fechar():
@@ -190,6 +189,7 @@ def clicar_em_fechar():
         pass
 
 
+
 def lancar_retroativo():
     lancamento_retroativo = encontrar_centro_imagem(r'src\Imagens\ReferenciaLancamentoRetroativo.png')
     if type(lancamento_retroativo) == tuple:
@@ -198,11 +198,13 @@ def lancar_retroativo():
         sleep(1)
 
 
+
 def repetir_botao():
     repetir_acao = encontrar_centro_imagem(r'src\Imagens\BotaoLancarNota.png')
     while type(repetir_acao) == tuple:
         ptg.press("enter")
         repetir_acao = encontrar_centro_imagem(r'src\Imagens\BotaoLancarNota.png')
+
 
 
 def tratar_processos_pendentes():
@@ -215,6 +217,7 @@ def tratar_processos_pendentes():
     repetir_botao()
 
 
+
 def clicar_2x(imagem):
     variavel = encontrar_centro_imagem(imagem)
     x, y = variavel
@@ -222,16 +225,18 @@ def clicar_2x(imagem):
     return x, y
 
 
+
 def tratar_etapa_final():
     sleep(1)
     ptg.press('esc', interval=1)
     while True:
         ptg.moveTo(150,100)
-        quebrar_loop = encontrar_centro_imagem(r'src\Imagens\ReferenciaFinalPorLancamento.png')
+        quebrar_loop = encontrar_centro_imagem(r'src\Imagens\ReferenciaQuebrarLoop.png')
         if type(quebrar_loop) != tuple:
             break
         else:
             ptg.press("esc")
+
 
 
 def clicar_botao_sair():
@@ -248,11 +253,13 @@ def clicar_botao_sair():
         sleep(2)
     
 
+
 def esperar_aparecer(imagem):
     encontrar = encontrar_centro_imagem(imagem)
     while type(encontrar) != tuple:
         encontrar = encontrar_centro_imagem(imagem)
     return encontrar
+
 
 
 def clicar_finalizar():
@@ -261,6 +268,7 @@ def clicar_finalizar():
     x, y = clicar_2x(r'src\Imagens\BotaoFinalizar.png')
     sleep(1)
     return x, y
+
 
 
 def mover_seta(passos, direcao, actions):
@@ -284,6 +292,7 @@ def mover_seta(passos, direcao, actions):
         actions.send_keys(direcao).perform()
     
 
+
 def formatador(variavel, casas_decimais="{:.2f}"):
     variavel = float(variavel)
     variavel = casas_decimais.format(variavel)
@@ -297,14 +306,15 @@ def formatador2(variavel):
     return variavel
 
 
+
 def formatador3(variavel):
     variavel = variavel.replace(",", ".")
     variavel = float(variavel)
     return variavel
 
 
+
 def formatador4(variavel):
     variavel = variavel.replace(".", "")
     variavel = formatador3(variavel)
     return variavel
-
