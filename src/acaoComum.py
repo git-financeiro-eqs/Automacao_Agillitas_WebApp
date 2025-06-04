@@ -40,7 +40,7 @@ def proceder_primario():
     - Verificar o status do processo e, quando identificado que já não há mais
       RTs para lançar, finalizar então o trabalho.
     """
-    utils.aguardar1()
+    utils.aguardar_generico()
 
     encontrar = utils.encontrar_imagem(r'src\Imagens\ReferenciaColunaValorTelaInicial.png')
     cont = 0
@@ -69,7 +69,7 @@ def proceder_primario():
     ptg.click(x, y)
     sleep(1)
     ptg.press("enter", interval=1)
-    utils.aguardar1()
+    utils.aguardar_generico()
 
     trabalho_acabou = utils.encontrar_imagem_precisao(r'src\Imagens\ReferenciaFinal.png')
     if type(trabalho_acabou) != pyscreeze.Box:
@@ -87,7 +87,7 @@ def filtrar_status(funcao="Padrao"):
     através da coluna status. Além de verificar se já não há mais nenhum
     registro disponível para lançamento.
     """
-
+ 
     estado_do_caixa = ""
     while True:
         try:
@@ -95,14 +95,14 @@ def filtrar_status(funcao="Padrao"):
             break
         except TypeError:
             pass
-
+ 
     ptg.doubleClick(x, y)
     sleep(1.5)
     ptg.click(x, y)
-    sleep(1.2)
+    sleep(1)
     ptg.hotkey("ctrl", "c", interval=0.5)
     estado_do_registro = paste()
-
+ 
     if funcao != "Padrao":
         aux_cont = 0
         while True:
@@ -110,7 +110,7 @@ def filtrar_status(funcao="Padrao"):
                 return estado_do_registro
             else:
                 ptg.click(x, y)
-                sleep(0.5)
+                sleep(1)
                 ptg.hotkey("ctrl", "c", interval=0.5)
                 estado_do_registro = paste()
                 aux_cont += 1
@@ -120,7 +120,7 @@ def filtrar_status(funcao="Padrao"):
 
     if estado_do_registro == "LANCADO":
         ptg.click(x, y)
-        sleep(1.2)
+        sleep(0.5)
         ptg.hotkey("ctrl", "c", interval=0.5)
         estado_do_registro = paste()
         if estado_do_registro == "LANCADO":
@@ -229,7 +229,7 @@ def importar_xml(caminho, driver_microsiga):
 
     driver_microsiga.execute_script(script)
 
-    utils.aguardar1()
+    utils.aguardar_generico()
     
 
 
@@ -272,9 +272,9 @@ def solicitar_XML():
 
     sleep(1)
     if type(falsa_duplicidade) == tuple or type(xml_manual) == tuple or type(xml_manual2) == tuple:
-        inserir_xml = ("tupla", "tupla")
+        inserir_xml = True
     else:
-        inserir_xml = None
+        inserir_xml = False
     return nf_cancelada, inserir_xml
 
 
@@ -299,18 +299,18 @@ def clicar_Lancar():
     sleep(0.3)
 
     utils.lancar_retroativo()
-    aguarde1, aguarde2 = utils.aguardar2()
+    aguarde1, aguarde2 = utils.aguardar_verificacao()
     if type(aguarde1) == tuple or type(aguarde2) == tuple:
         while True:
-            aguarde3, aguarde4 = utils.aguardar2()
+            aguarde3, aguarde4 = utils.aguardar_verificacao()
             if type(aguarde3) != tuple and type(aguarde4) != tuple:
                 utils.lancar_retroativo()
-                aguarde3, aguarde4 = utils.aguardar2()
+                aguarde3, aguarde4 = utils.aguardar_verificacao()
                 if type(aguarde3) != tuple and type(aguarde4) != tuple:
                     break
     else:
         utils.lancar_retroativo()
-        aguarde1, aguarde2 = utils.aguardar2()
+        aguarde1, aguarde2 = utils.aguardar_verificacao()
         if type(aguarde1) != tuple and type(aguarde2) != tuple:
             ptg.doubleClick(x,y)
     sleep(2)
@@ -377,7 +377,7 @@ def rejeitar_caixa(mensagem="Centro de Custo Bloqueado."):
     while type(abriu) != tuple:
         ptg.click(989, 130)
         abriu = utils.encontrar_centro_imagem(r'src\Imagens\BotaoRejeitarCaixa.png')
-
+ 
     sleep(0.5)
     while True:
         estado_do_caixa = filtrar_status(funcao="Rejeitar Caixa")
@@ -385,15 +385,15 @@ def rejeitar_caixa(mensagem="Centro de Custo Bloqueado."):
             x, y = utils.clicar_2x(r'src\Imagens\BotaoCancelar.png')
             tela_de_lancamento = utils.esperar_aparecer(r'src\Imagens\ReferenciaDocumentoEntrada.png')
             ptg.hotkey("ctrl", "s", interval=0.5)
-            aguarde1, aguarde2 = utils.aguardar2()
+            aguarde1, aguarde2 = utils.aguardar_verificacao()
             if type(aguarde1) == tuple or type(aguarde2) == tuple:
                 while True:
-                    aguarde3, aguarde4 = utils.aguardar2()
+                    aguarde3, aguarde4 = utils.aguardar_verificacao()
                     if type(aguarde3) != tuple and type(aguarde4) != tuple:
                         break
         else:
             break
-
+ 
     x, y = abriu
     ptg.doubleClick(x,y)
     campo_mensagem = utils.encontrar_centro_imagem(r'src\Imagens\CampoObservacaoRejeicao.png')
@@ -754,17 +754,18 @@ def finalizar_lancamento():
         
 
     while True:
-        sem_tela_final = utils.encontrar_imagem_precisao(r'src\Imagens\ReferenciaSemTelaFinal.png')
-        repentina_etapa_final = utils.encontrar_imagem_precisao(r'src\Imagens\ReferenciaFinalPorLancamento.png')
-        aguarde = utils.encontrar_imagem_precisao(r'src\Imagens\TelaDeAguarde2.png')
-        if type(aguarde) == pyscreeze.Box:
+        sem_tela_final = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaSemTelaFinal.png')
+        repentina_etapa_final = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaFinalPorLancamento.png')
+        aguarde = utils.encontrar_centro_imagem(r'src\Imagens\TelaDeAguarde2.png')
+        if type(aguarde) == tuple:
             sleep(0.5)
             continue
-        if type(repentina_etapa_final) == pyscreeze.Box:
+        if type(repentina_etapa_final) == tuple:
             utils.tratar_etapa_final()
             break
-        elif type(sem_tela_final) == pyscreeze.Box:
+        elif type(sem_tela_final) == tuple:
             break
+
 
     repentina_etapa_final = utils.encontrar_imagem_precisao(r'src\Imagens\ReferenciaFinalPorLancamento.png')
     if type(repentina_etapa_final) == pyscreeze.Box:
