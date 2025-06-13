@@ -19,17 +19,20 @@ class ProcessadorXML:
         self.itens = []
 
 
-    def coletar_nome_fantasia(self):
+    def coletar_dados_pertinentes(self):
         """
         Coleta o nome fantasia do fornecedor da nota fiscal.
         """
         try:
+            tipo_nf = self.doc["nfeProc"]["NFe"]["infNFe"]["ide"]["tpNF"]
             nome_fantasia_forn = self.doc["nfeProc"]["NFe"]["infNFe"]["emit"]["xFant"]
         except KeyError:
             try:
+                tipo_nf = self.doc["enviNFe"]["NFe"]["infNFe"]["ide"]["tpNF"]
                 nome_fantasia_forn = self.doc["enviNFe"]["NFe"]["infNFe"]["emit"]["xFant"]
             except KeyError:
                 try:
+                    tipo_nf = self.doc["NFe"]["infNFe"]["ide"]["tpNF"]
                     nome_fantasia_forn = self.doc["NFe"]["infNFe"]["emit"]["xFant"]
                 except KeyError:
                     try:
@@ -43,7 +46,8 @@ class ProcessadorXML:
 
         nome_fantasia_forn = nome_fantasia_forn[:20]
 
-        return nome_fantasia_forn
+        return tipo_nf, nome_fantasia_forn
+
 
 
     def coletar_dados_XML(self, coletor_xml, impostos_xml):
