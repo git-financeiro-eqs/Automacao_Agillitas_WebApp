@@ -11,7 +11,7 @@ import smtplib
 
 FAILSAFE = True
 
-def enviar_email(rt, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica):
+def enviar_email(rt, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida):
     """
     Dispara um E-mail para cada RT que por algum motivo não foi finalizada.
     """
@@ -66,6 +66,13 @@ def enviar_email(rt, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_
         mensagem_bloq = ""
     mensagens.append(mensagem_bloq)
 
+    if len(nf_invalida) > 0:
+        mensagem_nf_invalida = f"{len(nf_invalida)} processo(s) com uma NF de entrada do fornecedor para o próprio fornecedor (NÃO PODE SER LANÇADA!)."
+    else:
+        mensagem_nf_invalida = ""
+    mensagens.append(mensagem_nf_invalida)
+
+
     mensagem = [str(elemento) for elemento in mensagens if elemento != ""]
     string = "\n".join(mensagem)
 
@@ -94,7 +101,7 @@ Mariquinha,
 
     try:
         with smtplib.SMTP_SSL('grid331.mailgrid.com.br', 465) as servidor:
-            servidor.login("eqsengenharia@eqsengenharia.com.br", "YXPLlbnL2N")
+            servidor.login("eqsengenharia@eqsengenharia.com.br", "************")
             servidor.send_message(carta)
     except Exception as e:
         pass
@@ -152,9 +159,9 @@ def aguardar():
 
 
 def aguardar_generico(imagem = r'src\Imagens\TelaDeAguarde1.png'):
-    aguarde = encontrar_imagem(imagem)
-    while type(aguarde) == pyscreeze.Box:
-        aguarde = encontrar_imagem(imagem)
+    aguarde = encontrar_centro_imagem(imagem)
+    while type(aguarde) == tuple:
+        aguarde = encontrar_centro_imagem(imagem)
 
 
 
@@ -318,3 +325,5 @@ def formatador4(variavel):
     variavel = variavel.replace(".", "")
     variavel = formatador3(variavel)
     return variavel
+
+
