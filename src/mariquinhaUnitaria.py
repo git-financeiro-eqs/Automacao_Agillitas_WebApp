@@ -40,6 +40,7 @@ def lancamento_isolado(rt):
     cnpj_inconclusivo = []
     chave_sefaz =[]
     ncm_problematica = []
+    nf_invalida = []
 
 
     sleep(0.5)
@@ -87,7 +88,7 @@ def lancamento_isolado(rt):
         if type(ainda_tem_processo_pendente) == tuple:
             utils.tratar_processos_pendentes()
             if rt_contador:
-                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
             return
         
         if type(finalizar) == tuple:
@@ -95,7 +96,7 @@ def lancamento_isolado(rt):
         utils.aguardar()
         utils.clicar_botao_sair()
         if rt_contador:
-            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
         return
         
     def operar_lancamento(pular_processo):
@@ -148,7 +149,7 @@ def lancamento_isolado(rt):
                 if type(ainda_tem_processo_pendente) == tuple:
                     utils.tratar_processos_pendentes()
                     if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                     return
                 
                 if type(finalizar) == tuple:
@@ -156,7 +157,7 @@ def lancamento_isolado(rt):
                 utils.aguardar()
                 utils.clicar_botao_sair()
                 if rt_contador:
-                    utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                    utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                 return
             
             else:
@@ -169,7 +170,7 @@ def lancamento_isolado(rt):
                     if type(ainda_tem_processo_pendente) == tuple:
                         utils.tratar_processos_pendentes()
                         if rt_contador:
-                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                         return
                     
                     if type(finalizar) == tuple:
@@ -177,7 +178,7 @@ def lancamento_isolado(rt):
                     utils.aguardar()
                     utils.clicar_botao_sair()
                     if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                     return
                 
                 controle_de_repeticao.clear()
@@ -217,7 +218,7 @@ def lancamento_isolado(rt):
                                 ptg.press("enter", interval=1)
                                 utils.repetir_botao()
                                 if rt_contador:
-                                    utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                                    utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                                 return
                             
                             except ValueError:
@@ -299,7 +300,7 @@ def lancamento_isolado(rt):
                     ptg.press("enter", interval=1)
                     utils.repetir_botao()
                     if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                     return
                 
                 except:
@@ -363,7 +364,7 @@ def lancamento_isolado(rt):
                 if type(ainda_tem_processo_pendente) == tuple:
                     utils.tratar_processos_pendentes()
                     if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                     return
                 
                 if type(finalizar) == tuple:
@@ -371,7 +372,7 @@ def lancamento_isolado(rt):
                 utils.aguardar()
                 utils.clicar_botao_sair()
                 if rt_contador:
-                    utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                    utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                 return
             
 
@@ -384,7 +385,7 @@ def lancamento_isolado(rt):
                     ptg.press("enter", interval=1)
                     utils.repetir_botao()
                     if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                     return
                 
                 except:
@@ -429,7 +430,7 @@ def lancamento_isolado(rt):
                 if type(ainda_tem_processo_pendente) == tuple:
                     utils.tratar_processos_pendentes()
                     if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                     return
                 
                 if type(finalizar) == tuple:
@@ -437,11 +438,11 @@ def lancamento_isolado(rt):
                 utils.aguardar()
                 utils.clicar_botao_sair()
                 if rt_contador:
-                    utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                    utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                 return
             
             else:
-                nome_fantasia_forn, itens, indices_e_impostos = acaoComum.extrair_dados_XML(caminho)
+                tipo_nf, nome_fantasia_forn, itens, indices_e_impostos = acaoComum.extrair_dados_XML(caminho)
 
                 tela_de_lancamento = utils.encontrar_imagem(r'src\Imagens\ReferenciaDocumentoEntrada.png')
                 while type(tela_de_lancamento) != pyscreeze.Box:
@@ -533,6 +534,20 @@ def lancamento_isolado(rt):
                         return operar_lancamento(pular_processo)
                     
                     tela_de_lancamento = utils.encontrar_imagem(r'src\Imagens\ReferenciaDocumentoEntrada.png')
+
+
+                if tipo_nf == "0":
+                    utils.cancelar_lancamento()
+                    pular_processo.append(chave_de_acesso)
+                    controle_de_repeticao.append(chave_de_acesso)
+                    if not rt_contador:
+                        autor_da_rt, rt = acaoComum.copiar_RT()
+                        dono_da_rt.append(autor_da_rt)
+                        rt_contador.append(rt)
+                    acaoComum.pular_processo()
+                    nf_invalida.append(rt_contador[0])
+                    return operar_lancamento(pular_processo)
+                
                     
                 sleep(0.5)
                 utils.mover_seta(10, "tab", actions)
@@ -559,7 +574,7 @@ def lancamento_isolado(rt):
                     if type(ainda_tem_processo_pendente) == tuple:
                         utils.tratar_processos_pendentes()
                         if rt_contador:
-                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                         return
                     
                     if type(finalizar) == tuple:
@@ -567,7 +582,7 @@ def lancamento_isolado(rt):
                     utils.aguardar()
                     utils.clicar_botao_sair()
                     if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                     return
                 
                 controle_de_repeticao.clear()
@@ -575,5 +590,3 @@ def lancamento_isolado(rt):
 
     operar_lancamento(pular_processo)
     sleep(1)
-
-
