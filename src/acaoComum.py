@@ -120,11 +120,16 @@ def filtrar_status(funcao="Padrao"):
 
     if estado_do_registro == "LANCADO":
         ptg.click(x, y)
-        sleep(0.5)
+        sleep(1)
         ptg.hotkey("ctrl", "c", interval=0.5)
         estado_do_registro = paste()
         if estado_do_registro == "LANCADO":
-            estado_do_caixa = "FINALIZADO"
+            ptg.click(x, y)
+            sleep(1)
+            ptg.hotkey("ctrl", "c", interval=0.5)
+            estado_do_registro = paste()
+            if estado_do_registro == "LANCADO":
+                estado_do_caixa = "FINALIZADO"
 
     return estado_do_caixa
 
@@ -188,11 +193,16 @@ def insistir_ate_encontrar(x, y):
 
 
 def importar_xml(caminho, driver_microsiga):
+    aux=0
     while True:
         clique = utils.encontrar_centro_imagem(r'src\Imagens\ClicarInputServidor.png')
         if type(clique) == tuple:
             x, y = clique
             break
+        if aux == 3:
+            ptg.press("enter")
+        aux+=1
+        sleep(1)
 
     sleep(1)
     ptg.click(x,y, clicks=3, interval=0.07)
@@ -254,8 +264,9 @@ def solicitar_XML():
         nf_cancelada = utils.encontrar_centro_imagem(r'src\Imagens\ErroNFCanceladaPeloFornecedor.png')
         falsa_duplicidade = utils.encontrar_centro_imagem(r'src\Imagens\ErroPossivelDuplicidade.png')
         xml_manual = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaXMLAindaNaoSolicitado3.png')
+        xml_manual1 = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaXMLAindaNaoSolicitado2.png')
         xml_manual2 = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaXMLAindaNaoSolicitado.png')
-        if type(nf_cancelada) == tuple or type(falsa_duplicidade) == tuple or type(xml_manual) == tuple or type(xml_manual2) == tuple:
+        if type(nf_cancelada) == tuple or type(falsa_duplicidade) == tuple or type(xml_manual) == tuple or type(xml_manual1) == tuple or type(xml_manual2) == tuple:
             ptg.press("tab", interval=1.5)
             ptg.press("enter", interval=1)
         aguardando2 = utils.encontrar_centro_imagem(r'src\Imagens\TelaDeAguarde1.png')
@@ -271,10 +282,16 @@ def solicitar_XML():
             break
 
     sleep(1)
-    if type(falsa_duplicidade) == tuple or type(xml_manual) == tuple or type(xml_manual2) == tuple:
+    if type(falsa_duplicidade) == tuple or type(xml_manual) == tuple or type(xml_manual1) == tuple or type(xml_manual2) == tuple:
         inserir_xml = True
     else:
-        inserir_xml = False
+        xml_manual = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaXMLAindaNaoSolicitado3.png')
+        xml_manual1 = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaXMLAindaNaoSolicitado2.png')
+        xml_manual2 = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaXMLAindaNaoSolicitado.png')
+        if type(falsa_duplicidade) == tuple or type(xml_manual) == tuple or type(xml_manual1) == tuple or type(xml_manual2) == tuple:
+            inserir_xml = True
+        else:
+            inserir_xml = False
     return nf_cancelada, inserir_xml
 
 
@@ -456,7 +473,7 @@ def extrair_dados_XML(caminho):
             doc = xmltodict.parse(fd.read(), attr_prefix="@", cdata_key="#text")
 
     processador = extratorXML.ProcessadorXML(doc)
-    nome_fantasia_forn = processador.coletar_nome_fantasia()
+    tipo_nf, nome_fantasia_forn = processador.coletar_dados_pertinentes()
 
     const_item = 0
     while True:
@@ -504,7 +521,7 @@ def extrair_dados_XML(caminho):
 
     itens, indices_e_impostos = processador.trabalhar_dados_XML(valores_do_item)
 
-    return nome_fantasia_forn, itens, indices_e_impostos
+    return tipo_nf, nome_fantasia_forn, itens, indices_e_impostos
 
 
 
@@ -538,7 +555,7 @@ def verificar_cadastro_forn(nome_fantasia_forn, actions):
         while type(aba_fiscal) != pyscreeze.Box:
             aba_fiscal = utils.encontrar_imagem(r'src\Imagens\ReferenciaAbaFiscal.png')
             ptg.hotkey("alt", "f", interval=1)
-        ptg.hotkey(["shift", "tab"]*3, interval=0.7)
+        ptg.hotkey(["shift", "tab"]*3, interval=0.8)
         sleep(0.2)
         ptg.press("space", interval=1)
         ptg.press(["up"]*2, interval=0.7)
@@ -745,14 +762,15 @@ def finalizar_lancamento():
         ptg.press("tab")
         ptg.hotkey("ctrl", "s", interval=1)
 
-    
+
     campo_sped = utils.encontrar_centro_imagem(r'src\Imagens\CampoSPED.png')
     if type(campo_sped) == tuple:
+        print("caralho")
         while type(campo_sped) == tuple:
             ptg.hotkey("ctrl", "s", interval=1.5)
             campo_sped = utils.encontrar_centro_imagem(r'src\Imagens\CampoSPED.png')
         
-
+    aux=0
     while True:
         sem_tela_final = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaSemTelaFinal.png')
         repentina_etapa_final = utils.encontrar_centro_imagem(r'src\Imagens\ReferenciaFinalPorLancamento.png')
@@ -764,6 +782,9 @@ def finalizar_lancamento():
             utils.tratar_etapa_final()
             break
         elif type(sem_tela_final) == tuple:
+            break
+        aux+=1
+        if aux == 7:
             break
 
 
