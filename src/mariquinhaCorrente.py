@@ -50,6 +50,7 @@ def inicializar_processo():
         cnpj_inconclusivo = []
         chave_sefaz =[]
         ncm_problematica = []
+        nf_invalida = []
 
 
         sleep(0.5)
@@ -170,7 +171,7 @@ def inicializar_processo():
                     if type(ainda_tem_processo_pendente) == tuple:
                         utils.tratar_processos_pendentes()
                         if rt_contador:
-                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                         
                         # O registro imediato para lançamento é um recibo, mas, por algum motivo, não deu para lançar todos
                         # os registros dessa RT, ao mesmo tempo, não há mais nenhum registro que a automação consiga lançar.
@@ -184,7 +185,7 @@ def inicializar_processo():
                     utils.aguardar()
                     utils.clicar_botao_sair()
                     if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                     return robozinho()
                 
                 else:
@@ -197,7 +198,7 @@ def inicializar_processo():
                         if type(ainda_tem_processo_pendente) == tuple:
                             utils.tratar_processos_pendentes()
                             if rt_contador:
-                                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                             return robozinho()
                         
                         if type(finalizar) == tuple:
@@ -205,7 +206,7 @@ def inicializar_processo():
                         utils.aguardar()
                         utils.clicar_botao_sair()
                         if rt_contador:
-                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                         return robozinho()
                     
                     controle_de_repeticao.clear()
@@ -255,7 +256,7 @@ def inicializar_processo():
                                     ptg.press("down")
                                     ptg.click(x, y)
                                     if rt_contador:
-                                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                                     
                                     # Esses casos de "try - except" são onde a automação tenta verificar se o registro imediato
                                     # já foi testado para lançamento. Se já tiver sido testado, a automação também precisa pular o processo,
@@ -367,7 +368,7 @@ def inicializar_processo():
                         ptg.press("down")
                         ptg.click(x, y)
                         if rt_contador:
-                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                         return robozinho()
                     
                     except ValueError:
@@ -430,7 +431,7 @@ def inicializar_processo():
                     if type(ainda_tem_processo_pendente) == tuple:
                         utils.tratar_processos_pendentes()
                         if rt_contador:
-                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                         return robozinho()
                     
                     if type(finalizar) == tuple:
@@ -438,7 +439,7 @@ def inicializar_processo():
                     utils.aguardar()
                     utils.clicar_botao_sair()
                     if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                     return robozinho()
                 
                 try:
@@ -456,7 +457,7 @@ def inicializar_processo():
                         ptg.press("down", interval=0.4)
                         ptg.click(x, y)
                         if rt_contador:
-                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                         return robozinho()
                     
                     except ValueError:
@@ -501,7 +502,7 @@ def inicializar_processo():
                     if type(ainda_tem_processo_pendente) == tuple:
                         utils.tratar_processos_pendentes()
                         if rt_contador:
-                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                         return robozinho()
                     
                     if type(finalizar) == tuple:
@@ -509,11 +510,11 @@ def inicializar_processo():
                     utils.aguardar()
                     utils.clicar_botao_sair()
                     if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                     return robozinho()
                 
                 else:
-                    nome_fantasia_forn, itens, indices_e_impostos = acaoComum.extrair_dados_XML(caminho)
+                    tipo_nf, nome_fantasia_forn, itens, indices_e_impostos = acaoComum.extrair_dados_XML(caminho)
 
                     tela_de_lancamento = utils.encontrar_imagem(r'src\Imagens\ReferenciaDocumentoEntrada.png')
                     while type(tela_de_lancamento) != pyscreeze.Box:
@@ -626,6 +627,19 @@ def inicializar_processo():
                         
                         tela_de_lancamento = utils.encontrar_imagem(r'src\Imagens\ReferenciaDocumentoEntrada.png')
                         
+                        
+                    if tipo_nf == "0":
+                        utils.cancelar_lancamento()
+                        pular_processo.append(chave_de_acesso)
+                        controle_de_repeticao.append(chave_de_acesso)
+                        if not rt_contador:
+                            autor_da_rt, rt = acaoComum.copiar_RT()
+                            dono_da_rt.append(autor_da_rt)
+                            rt_contador.append(rt)
+                        acaoComum.pular_processo()
+                        nf_invalida.append(rt_contador[0])
+                        return operar_lancamento(pular_processo)
+
 
                     sleep(0.5)
                     utils.mover_seta(10, "tab", actions)
@@ -656,7 +670,7 @@ def inicializar_processo():
                         if type(ainda_tem_processo_pendente) == tuple:
                             utils.tratar_processos_pendentes()
                             if rt_contador:
-                                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                             return robozinho()
                         
                         if type(finalizar) == tuple:
@@ -664,7 +678,7 @@ def inicializar_processo():
                         utils.aguardar()
                         utils.clicar_botao_sair()
                         if rt_contador:
-                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica)
+                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                         return robozinho()
         
                     controle_de_repeticao.clear()
@@ -677,4 +691,3 @@ def inicializar_processo():
     while True:
         robozinho()
         sleep(1)
-        
