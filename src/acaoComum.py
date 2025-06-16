@@ -373,8 +373,12 @@ def copiar_chave_acesso():
     if len(chave_de_acesso) != 44:
         processo_feito_errado = True
     sleep(0.5)
-    ptg.press("esc")
-    sleep(2)
+    ptg.press("esc", interval=2)
+    encontrar_chave_de_acesso = utils.encontrar_imagem(r'src\Imagens\ReferenciaAbriuChaveDeAcesso.png')
+    if type(encontrar_chave_de_acesso) == pyscreeze.Box:
+        while type(encontrar_chave_de_acesso) == pyscreeze.Box:
+            ptg.press("esc", interval=2)
+            encontrar_chave_de_acesso = utils.encontrar_imagem(r'src\Imagens\ReferenciaAbriuChaveDeAcesso.png')
     return chave_de_acesso, processo_feito_errado
 
 
@@ -533,9 +537,10 @@ def verificar_cadastro_forn(nome_fantasia_forn, actions):
     """
     cadastro_fornecedor = utils.encontrar_imagem(r'src\Imagens\ReferenciaTelaCadastroDeFornecedor.png')
     if type(cadastro_fornecedor) == pyscreeze.Box:
-        sem_nome_fantasia = utils.encontrar_imagem(r'src\Imagens\ForncedorSemNomeFantasia.png')
-        if type(sem_nome_fantasia) == pyscreeze.Box:
-            utils.mover_seta(2, "tab", actions)
+        sem_nome_fantasia = utils.encontrar_centro_imagem(r'src\Imagens\ForncedorSemNomeFantasia.png')
+        if type(sem_nome_fantasia) == tuple:
+            x,y = sem_nome_fantasia
+            ptg.click(x,y, interval=0.5)
             copy(nome_fantasia_forn)
             sleep(0.3)
             ptg.hotkey("ctrl", "v", interval=0.7)
@@ -545,8 +550,17 @@ def verificar_cadastro_forn(nome_fantasia_forn, actions):
         while type(aba_adm) != pyscreeze.Box:
             aba_adm = utils.encontrar_imagem(r'src\Imagens\ReferenciaAbaAdm.png')
             ptg.hotkey("alt", "a", interval=1)
-        utils.mover_seta(5, "tab", actions)
-        sleep(0.8)
+        
+        while True:
+            try:
+                campo_natureza = utils.encontrar_centro_imagem(r'src\Imagens\CampoNatureza.png')
+                x,y = campo_natureza
+                break
+            except TypeError:
+                ptg.hotkey("alt", "f", interval=1)
+                ptg.hotkey("alt", "a", interval=1)
+
+        ptg.click(x,y, interval=1)
         copy("2020087")
         ptg.hotkey("ctrl", "v", interval=0.7)
         utils.mover_seta(1, "tab", actions)
@@ -555,9 +569,17 @@ def verificar_cadastro_forn(nome_fantasia_forn, actions):
         while type(aba_fiscal) != pyscreeze.Box:
             aba_fiscal = utils.encontrar_imagem(r'src\Imagens\ReferenciaAbaFiscal.png')
             ptg.hotkey("alt", "f", interval=1)
-        ptg.hotkey(["shift", "tab"]*3, interval=0.8)
-        sleep(0.2)
-        ptg.press("space", interval=1)
+
+        while True:
+            try:
+                campo_contribuinte = utils.encontrar_centro_imagem(r'src\Imagens\CampoContribuinte.png')
+                x,y = campo_contribuinte
+                break
+            except TypeError:
+                ptg.hotkey("alt", "a", interval=1)
+                ptg.hotkey("alt", "f", interval=1)
+
+        ptg.click(x,y, interval=1)
         ptg.press(["up"]*2, interval=0.7)
         ptg.press("enter", interval=0.5)
         ptg.hotkey("ctrl", "s", interval=0.5)
@@ -791,4 +813,7 @@ def finalizar_lancamento():
     repentina_etapa_final = utils.encontrar_imagem_precisao(r'src\Imagens\ReferenciaFinalPorLancamento.png')
     if type(repentina_etapa_final) == pyscreeze.Box:
         utils.tratar_etapa_final()
-        
+
+
+
+
