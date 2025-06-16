@@ -97,10 +97,10 @@ def filtrar_status(funcao="Padrao"):
             pass
  
     ptg.doubleClick(x, y)
-    sleep(1.5)
-    ptg.click(x, y)
     sleep(1)
-    ptg.hotkey("ctrl", "c", interval=0.5)
+    ptg.click(x, y)
+    sleep(1.8)
+    ptg.hotkey("ctrl", "c", interval=0.32)
     estado_do_registro = paste()
  
     if funcao != "Padrao":
@@ -110,8 +110,8 @@ def filtrar_status(funcao="Padrao"):
                 return estado_do_registro
             else:
                 ptg.click(x, y)
-                sleep(1)
-                ptg.hotkey("ctrl", "c", interval=0.5)
+                sleep(1.8)
+                ptg.hotkey("ctrl", "c", interval=0.32)
                 estado_do_registro = paste()
                 aux_cont += 1
             if aux_cont == 3:
@@ -120,13 +120,13 @@ def filtrar_status(funcao="Padrao"):
 
     if estado_do_registro == "LANCADO":
         ptg.click(x, y)
-        sleep(1)
-        ptg.hotkey("ctrl", "c", interval=0.5)
+        sleep(1.8)
+        ptg.hotkey("ctrl", "c", interval=0.32)
         estado_do_registro = paste()
         if estado_do_registro == "LANCADO":
             ptg.click(x, y)
-            sleep(1)
-            ptg.hotkey("ctrl", "c", interval=0.5)
+            sleep(1.8)
+            ptg.hotkey("ctrl", "c", interval=0.32)
             estado_do_registro = paste()
             if estado_do_registro == "LANCADO":
                 estado_do_caixa = "FINALIZADO"
@@ -813,7 +813,4 @@ def finalizar_lancamento():
     repentina_etapa_final = utils.encontrar_imagem_precisao(r'src\Imagens\ReferenciaFinalPorLancamento.png')
     if type(repentina_etapa_final) == pyscreeze.Box:
         utils.tratar_etapa_final()
-
-
-
-
+        
