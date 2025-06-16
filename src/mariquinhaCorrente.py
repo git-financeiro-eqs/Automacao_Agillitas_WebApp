@@ -51,7 +51,8 @@ def inicializar_processo():
         chave_sefaz =[]
         ncm_problematica = []
         nf_invalida = []
-
+        global variavelFDP
+        variavelFDP = 0
 
         sleep(0.5)
         while True:
@@ -125,7 +126,7 @@ def inicializar_processo():
             lançar um registro que já foi testado seu lançamento.
             """
             estado_do_caixa = False
-            global doc
+            global doc, variavelFDP
 
             controlador = acaoComum.verificar_status()
 
@@ -165,29 +166,35 @@ def inicializar_processo():
                     return operar_lancamento(pular_processo)
                 
                 elif estado_do_caixa == True:
-                    x, y = utils.clicar_finalizar()
-                    finalizar, ainda_tem_processo_pendente = acaoComum.insistir_ate_encontrar(x, y)
+                    variavelFDP +=1
+                    if variavelFDP == 4:
+                        x, y = utils.clicar_finalizar()
+                        finalizar, ainda_tem_processo_pendente = acaoComum.insistir_ate_encontrar(x, y)
 
-                    if type(ainda_tem_processo_pendente) == tuple:
-                        utils.tratar_processos_pendentes()
+                        if type(ainda_tem_processo_pendente) == tuple:
+                            utils.tratar_processos_pendentes()
+                            if rt_contador:
+                                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
+                            
+                            # O registro imediato para lançamento é um recibo, mas, por algum motivo, não deu para lançar todos
+                            # os registros dessa RT, ao mesmo tempo, não há mais nenhum registro que a automação consiga lançar.
+                            # Nesse caso, ela sai da RT, deixa ela com status de lançada parcialmente, e usa da recursividade para
+                            # iniciar o próximo processo.
+                            
+                            return robozinho()
+                        
+                        if type(finalizar) == tuple:
+                            ptg.press("enter")
+                        utils.aguardar()
+                        utils.clicar_botao_sair()
                         if rt_contador:
                             utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
-                        
-                        # O registro imediato para lançamento é um recibo, mas, por algum motivo, não deu para lançar todos
-                        # os registros dessa RT, ao mesmo tempo, não há mais nenhum registro que a automação consiga lançar.
-                        # Nesse caso, ela sai da RT, deixa ela com status de lançada parcialmente, e usa da recursividade para
-                        # iniciar o próximo processo.
-                        
                         return robozinho()
                     
-                    if type(finalizar) == tuple:
-                        ptg.press("enter")
-                    utils.aguardar()
-                    utils.clicar_botao_sair()
-                    if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
-                    return robozinho()
-                
+                    else:
+                        ptg.press("enter", interval=1)
+                        return operar_lancamento(pular_processo)
+
                 else:
                     estado_do_caixa = acaoComum.filtrar_status()
 
@@ -496,22 +503,34 @@ def inicializar_processo():
                     return operar_lancamento(pular_processo)
                     
                 elif estado_do_caixa == True:
-                    x, y = utils.clicar_finalizar()
-                    finalizar, ainda_tem_processo_pendente = acaoComum.insistir_ate_encontrar(x, y)
+                    variavelFDP +=1
+                    if variavelFDP == 4:
+                        x, y = utils.clicar_finalizar()
+                        finalizar, ainda_tem_processo_pendente = acaoComum.insistir_ate_encontrar(x, y)
 
-                    if type(ainda_tem_processo_pendente) == tuple:
-                        utils.tratar_processos_pendentes()
+                        if type(ainda_tem_processo_pendente) == tuple:
+                            utils.tratar_processos_pendentes()
+                            if rt_contador:
+                                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
+                            
+                            # O registro imediato para lançamento é um recibo, mas, por algum motivo, não deu para lançar todos
+                            # os registros dessa RT, ao mesmo tempo, não há mais nenhum registro que a automação consiga lançar.
+                            # Nesse caso, ela sai da RT, deixa ela com status de lançada parcialmente, e usa da recursividade para
+                            # iniciar o próximo processo.
+                            
+                            return robozinho()
+                        
+                        if type(finalizar) == tuple:
+                            ptg.press("enter")
+                        utils.aguardar()
+                        utils.clicar_botao_sair()
                         if rt_contador:
                             utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
                         return robozinho()
                     
-                    if type(finalizar) == tuple:
-                        ptg.press("enter", interval=0.4)
-                    utils.aguardar()
-                    utils.clicar_botao_sair()
-                    if rt_contador:
-                        utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
-                    return robozinho()
+                    else:
+                        ptg.press("enter", interval=1)
+                        return operar_lancamento(pular_processo)
                 
                 else:
                     tipo_nf, nome_fantasia_forn, itens, indices_e_impostos = acaoComum.extrair_dados_XML(caminho)
@@ -691,3 +710,5 @@ def inicializar_processo():
     while True:
         robozinho()
         sleep(1)
+
+
