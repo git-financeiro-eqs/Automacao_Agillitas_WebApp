@@ -590,3 +590,5 @@ def lancamento_isolado(rt):
 
     operar_lancamento(pular_processo)
     sleep(1)
+
+
