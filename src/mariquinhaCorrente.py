@@ -51,8 +51,8 @@ def inicializar_processo():
         chave_sefaz =[]
         ncm_problematica = []
         nf_invalida = []
-        global variavelFDP
-        variavelFDP = 0
+        global aux_contorno_instab
+        aux_contorno_instab = 0
 
         sleep(0.5)
         while True:
@@ -126,7 +126,7 @@ def inicializar_processo():
             lançar um registro que já foi testado seu lançamento.
             """
             estado_do_caixa = False
-            global doc, variavelFDP
+            global doc, aux_contorno_instab
 
             controlador = acaoComum.verificar_status()
 
@@ -154,9 +154,13 @@ def inicializar_processo():
                 if estado_do_caixa == "NF já lançada":
                     controle_de_repeticao.append(chave_de_acesso)
                     pular_processo.append(chave_de_acesso)
-                    clique_negar = utils.encontrar_centro_imagem(r'src\Imagens\BotaoNao.png')
-                    x, y = clique_negar
-                    ptg.doubleClick(x, y, interval=0.7)
+                    try:
+                        clique_negar = utils.encontrar_centro_imagem(r'src\src\Imagens\BotaoNao.png')
+                        x, y = clique_negar
+                        ptg.doubleClick(x, y, interval=0.7)
+                    except TypeError:
+                        ptg.press("tab", interval=0.3)
+                        ptg.press("enter", interval=0.5)
                     if not rt_contador:
                         autor_da_rt, rt = acaoComum.copiar_RT()
                         dono_da_rt.append(autor_da_rt)
@@ -166,8 +170,8 @@ def inicializar_processo():
                     return operar_lancamento(pular_processo)
                 
                 elif estado_do_caixa == True:
-                    variavelFDP +=1
-                    if variavelFDP == 4:
+                    aux_contorno_instab +=1
+                    if aux_contorno_instab == 4:
                         x, y = utils.clicar_finalizar()
                         finalizar, ainda_tem_processo_pendente = acaoComum.insistir_ate_encontrar(x, y)
 
@@ -186,6 +190,14 @@ def inicializar_processo():
                         if type(finalizar) == tuple:
                             ptg.press("enter")
                         utils.aguardar()
+                        acao_contingencial = utils.encontrar_centro_imagem(r'src\Imagens\Contingencia.png')
+                        if type(acao_contingencial) == tuple:
+                            ptg.press("enter")
+                            utils.aguardar_generico()
+                            utils.tratar_processos_pendentes()
+                            if rt_contador:
+                                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
+                            return robozinho()
                         utils.clicar_botao_sair()
                         if rt_contador:
                             utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
@@ -193,6 +205,7 @@ def inicializar_processo():
                     
                     else:
                         ptg.press("enter", interval=1)
+                        estado_do_caixa = acaoComum.filtrar_status()
                         return operar_lancamento(pular_processo)
 
                 else:
@@ -211,6 +224,14 @@ def inicializar_processo():
                         if type(finalizar) == tuple:
                             ptg.press("enter")
                         utils.aguardar()
+                        acao_contingencial = utils.encontrar_centro_imagem(r'src\Imagens\Contingencia.png')
+                        if type(acao_contingencial) == tuple:
+                            ptg.press("enter")
+                            utils.aguardar_generico()
+                            utils.tratar_processos_pendentes()
+                            if rt_contador:
+                                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
+                            return robozinho()
                         utils.clicar_botao_sair()
                         if rt_contador:
                             utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
@@ -288,7 +309,7 @@ def inicializar_processo():
                                 
                             except ValueError:
                                 # Aqui está o fluxo natural do script. Quando o registro não precisa ser pulado, mas sim lançado.
-                                caminho = "C:\\Users\\Usuário\\Desktop\\xmlFiscalio\\" + chave_de_acesso + ".xml"
+                                caminho = "C:\\Users\\User\\OneDrive - EQS Engenharia Ltda\\Área de Trabalho\\Mariquinha\\xmlFiscalio\\" + chave_de_acesso + ".xml"
                                 path = Path(caminho)
 
                                 if not path.exists():
@@ -384,7 +405,7 @@ def inicializar_processo():
                         return operar_lancamento(pular_processo)
                     
                 except ValueError:
-                    caminho = "C:\\Users\\Usuário\\Desktop\\xmlFiscalio\\" + chave_de_acesso + ".xml"
+                    caminho = "C:\\Users\\User\\OneDrive - EQS Engenharia Ltda\\Área de Trabalho\\Mariquinha\\xmlFiscalio\\" + chave_de_acesso + ".xml"
                     path = Path(caminho)
 
                     if not path.exists():
@@ -444,6 +465,14 @@ def inicializar_processo():
                     if type(finalizar) == tuple:
                         ptg.press("enter")
                     utils.aguardar()
+                    acao_contingencial = utils.encontrar_centro_imagem(r'src\Imagens\Contingencia.png')
+                    if type(acao_contingencial) == tuple:
+                        ptg.press("enter")
+                        utils.aguardar_generico()
+                        utils.tratar_processos_pendentes()
+                        if rt_contador:
+                            utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
+                        return robozinho()
                     utils.clicar_botao_sair()
                     if rt_contador:
                         utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
@@ -473,7 +502,7 @@ def inicializar_processo():
                         return operar_lancamento(pular_processo)
                     
                 except ValueError:
-                    caminho = "C:\\Users\\Usuário\\Desktop\\xmlFiscalio\\" + chave_de_acesso + ".xml"
+                    caminho = "C:\\Users\\User\\OneDrive - EQS Engenharia Ltda\\Área de Trabalho\\Mariquinha\\xmlFiscalio\\" + chave_de_acesso + ".xml"
                     path = Path(caminho)
                     
                     if not path.exists():
@@ -491,9 +520,13 @@ def inicializar_processo():
                 if estado_do_caixa == "NF já lançada":
                     controle_de_repeticao.append(chave_de_acesso)
                     pular_processo.append(chave_de_acesso)
-                    clique_negar = utils.encontrar_centro_imagem(r'src\Imagens\BotaoNao.png')
-                    x, y = clique_negar
-                    ptg.doubleClick(x, y, interval=0.7)
+                    try:
+                        clique_negar = utils.encontrar_centro_imagem(r'src\src\Imagens\BotaoNao.png')
+                        x, y = clique_negar
+                        ptg.doubleClick(x, y, interval=0.7)
+                    except TypeError:
+                        ptg.press("tab", interval=0.3)
+                        ptg.press("enter", interval=0.5)
                     if not rt_contador:
                         autor_da_rt, rt = acaoComum.copiar_RT()
                         dono_da_rt.append(autor_da_rt)
@@ -503,8 +536,8 @@ def inicializar_processo():
                     return operar_lancamento(pular_processo)
                     
                 elif estado_do_caixa == True:
-                    variavelFDP +=1
-                    if variavelFDP == 4:
+                    aux_contorno_instab +=1
+                    if aux_contorno_instab == 4:
                         x, y = utils.clicar_finalizar()
                         finalizar, ainda_tem_processo_pendente = acaoComum.insistir_ate_encontrar(x, y)
 
@@ -523,6 +556,14 @@ def inicializar_processo():
                         if type(finalizar) == tuple:
                             ptg.press("enter")
                         utils.aguardar()
+                        acao_contingencial = utils.encontrar_centro_imagem(r'src\Imagens\Contingencia.png')
+                        if type(acao_contingencial) == tuple:
+                            ptg.press("enter")
+                            utils.aguardar_generico()
+                            utils.tratar_processos_pendentes()
+                            if rt_contador:
+                                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
+                            return robozinho()
                         utils.clicar_botao_sair()
                         if rt_contador:
                             utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
@@ -530,6 +571,7 @@ def inicializar_processo():
                     
                     else:
                         ptg.press("enter", interval=1)
+                        estado_do_caixa = acaoComum.filtrar_status()
                         return operar_lancamento(pular_processo)
                 
                 else:
@@ -695,6 +737,14 @@ def inicializar_processo():
                         if type(finalizar) == tuple:
                             ptg.press("enter")
                         utils.aguardar()
+                        acao_contingencial = utils.encontrar_centro_imagem(r'src\Imagens\Contingencia.png')
+                        if type(acao_contingencial) == tuple:
+                            ptg.press("enter")
+                            utils.aguardar_generico()
+                            utils.tratar_processos_pendentes()
+                            if rt_contador:
+                                utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
+                            return robozinho()
                         utils.clicar_botao_sair()
                         if rt_contador:
                             utils.enviar_email(rt_contador, dono_da_rt, sem_xml, chave_inconforme, nf_ja_lancada, cond_pag, bloqueado, cnpj_inconclusivo, chave_sefaz, ncm_problematica, nf_invalida)
@@ -710,5 +760,4 @@ def inicializar_processo():
     while True:
         robozinho()
         sleep(1)
-
 
